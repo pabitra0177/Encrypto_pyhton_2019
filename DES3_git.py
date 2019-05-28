@@ -1,4 +1,4 @@
-## pip install pycrypto`
+## '''pip install pycrypto`'''
 
 from Crypto.Cipher import DES3
 from Crypto import Random
