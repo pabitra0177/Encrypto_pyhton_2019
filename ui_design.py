@@ -61,7 +61,7 @@ class App(QWidget):
 							
 
 	def runner_AES(self):          #control flow of AES
-		if main_flag=='e' and len(self.key)==16: ## encryption
+		if main_flag=='e' # and len(self.key)==16: ## encryption
 			print(self.key)
 			print(self.ip_path)  # check
 			l=self.ip_path.split('/')
