@@ -131,30 +131,7 @@ class App(QWidget):
 			elif len(self.key)==16 and self.main_flag=='e':
 				#	now let's  do the encryption
 				self.myMessageBox.setText("Encryption is going on")
-				key=self.key
-				in_filename=self.in_path
-				log_path=self.log_path 
-				out_filename=self.op_path
-				chunksize=self.chunksize;
-				# **** #
-				log=[]
-				curr_time=ctime()
-				cTime=curr_time.split(' ')
-				date=cTime[3]+"/"+cTime[1]+"/"+cTime[-1]
-				day=cTime[0]
-				clk=cTime[4]
-				
-				log.append(self.process_flag)
-				log.append(day)
-				log.append(date)
-				log.append(clk)
-	
-				log.append(key)
-				log.append(in_filename)
-		
-				if not out_filename:
-					out_filename = in_filename + '.enc'
-				'''
+								'''
 				missing
 				'''
 				
@@ -162,30 +139,7 @@ class App(QWidget):
 			
 			elif len(self.key)==16 and self.main_flag=='d':
 				""" decryption """
-				self.myMessageBox.setText("Decryption is going on")
-				key=self.key
-				in_filename=self.in_path
-				log_path=self.log_path
-				out_filename=self.op_path 
-				chunksize=self.chunksize;
-				
-				log=[]
-				curr_time=ctime()
-				cTime=curr_time.split(' ')
-				date=cTime[3]+"/"+cTime[1]+"/"+cTime[-1]
-				day=cTime[0]
-				clk=cTime[4]
-				
-				log.append(day)
-				log.append(date)
-				log.append(clk)
-	
-				log.append(key)
-				log.append(in_filename)
-	
-				if not out_filename:
-					out_filename = os.path.splitext(in_filename)[0]
-				
+				self.myMessageBox.setText("Decryption is going on")			
 				'''
 				missing
 				'''
