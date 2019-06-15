@@ -12,6 +12,7 @@ Features:-
 Yet to be solved:-
 1)  The repository which I have used is not supported in Windows(there is a similar repo but ...). So to create a clone of
     the Encrypto.py that will run in a Windows system
+    ### import Crypto ###
 
 **** I need help in creating an .exe file that will run in a windows system and also a msi file **********
 (
