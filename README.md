@@ -9,13 +9,6 @@ Features:-
 5) User explicitly has to choose the output folder and there is a default log file which can be changed
 6) The code is written with Python Object Oriented Programing(OOPs).
 
-Yet to be solved:-
-1)  The repository which I have used is not supported in Windows(there is a similar repo but ...). So to create a clone of
-    the Encrypto.py that will run in a Windows system
-    ### import Crypto ###
+* The initial copy of the code Encrypto.py was developed for linux os, which won't run directly in Windows os.
+* Encrypto_windows.py is Windows OS variant of the main code
 
-**** I need help in creating an .exe file that will run in a windows system and also a msi file **********
-(
-  When I'm trying to create an exe in my ubuntu system the output file didn't work in windows
-  So how to do that ???
-)
