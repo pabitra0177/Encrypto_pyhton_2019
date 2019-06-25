@@ -1,7 +1,7 @@
 # Encryption_pyhton_2019
 * Encrypto is basically a tool to do encryption and decryption using AES and DES3.
 
-Features:-
+/Features:-
 1) It has a UI made with PyQt5
 2) User has choice to choose among the two methodes .
 3) It supports 2 step-user-key system and key verification
