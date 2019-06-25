@@ -1,4 +1,4 @@
-# Project Title :-Encrypto
+# Project Title :- Encrypto
 
 One Paragraph of project description goes here
 
