@@ -1,6 +1,6 @@
 # Project Title :- Encrypto
 
-One Paragraph of project description goes here
+One Paragraph of project description goes here // It will be ready soon
 
 ## Getting Started
 
