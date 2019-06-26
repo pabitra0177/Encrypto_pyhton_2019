@@ -1,6 +1,11 @@
+## 	pyhton 3.67
+## 	Gedit 
+##	116cs0177	
+##	Crypto
+
 # the main UI
 # check : Gtk-Message: 20:05:27.575: GtkDialog mapped without a transient parent. This is discouraged. 
-# 116CS0177/VULTURE
+
 ''''
 variable declaration:-
 
@@ -20,12 +25,8 @@ variable declaration:-
 5)self.log_path:-	status- class member string var
 					log file path
 					
-6)process_flag					
+6)self.process_flag:- Decides the algorithm we are using 					
 ''' 
-
-'''
-FUNCTIONs:-
-'''
 
 
 #from fbs_runtime.application_context import ApplicationContext
@@ -47,15 +48,26 @@ import csv
 padd=['#','@','!','$','%','&','?','>','<','+','~','*']
 
 class App(QWidget):
-	"""   """
+	"""  
+	This is class declaration of the application.
+	"""
 	def selector(self,text):
+		'''
+		This function is activated by the first combo box
+		It selects whether the process is encryption or decryption
+		'''
 		if text=='ENCRYPTION':
 			self.main_flag='e'
 		elif text=='DECRYPTION' :
 			self.main_flag='d'
-		#print(self.main_flag)	
+		#print(self.main_flag)
+		self.myMessageBox.setText(text+" is selected, Select the i/p file and o/p path now")	
 	
 	def check(self):
+		'''
+		This is a check function.
+		It can be removed
+		'''
 		print("hello")
 			
 	
@@ -78,11 +90,14 @@ class App(QWidget):
 			self.myMessageBox.setText("AES is selected, MODE:-CBC , Now enter the key ")
 		elif text=='DES3':
 			self.process_flag='DES3'
+			self.myMessageBox.setText("DES3 is selected, MODE:-OFB , Now enter the key ")
 				
 								
-				
-	
 	def key_generator(self,text):
+		'''
+		function key_generator :- generates and validates the key
+		There is also a section of code / commented for now / which does a shuffling of the key
+		'''
 		if len(text)==8 and self.main_flag=='e' and (self.process_flag=='DES3' or self.process_flag=='AES'):  ## this part is for encryption
 			self.key=text;
 			key_length=len(self.key)
@@ -109,37 +124,52 @@ class App(QWidget):
 			## shuffled key is ready
 			''' 
 			#print(self.key)
-			self.myMessageBox.setText(self.key)
+			self.myMessageBox.setText("The following key:- "+ self.key+" is generated,Keep it safe !!!")
 			self.key=self.key.encode('utf-8')
 			
 		if self.main_flag=='d'	and len(text)==16 and (self.process_flag=='DES3' or self.process_flag=='AES'):   
 			## this part is for decryption
 			self.key=text
 			#print(self.key)
-			self.myMessageBox.setText(self.key)
+			self.myMessageBox.setText("Received key is "+self.key)
 			self.key=self.key.encode('utf-8')
 				
 		
 	def open_files(self):   # browser Button
+		'''
+		It opens the file dialog to select the file to be encrypted or decrypted
+		'''
 		dialog = QFileDialog()
 		fname = dialog.getOpenFileName(self, "Open file")
 		filename=fname[0]
 		self.in_path=filename
 		self.myTextBox.setText(self.in_path)
+		self.myMessageBox.setText("i/p file is selected , may jump to op folder selection")
 		
 	def open_files_log(self):   # log file browser Button
+		'''
+		A function to select the log file .
+		'''
 		dialog = QFileDialog()
 		fname = dialog.getOpenFileName(self, "Open log file")
 		filename=fname[0]
 		self.log_path=filename
 		self.logTextBox.setText(filename)
+		self.myMessageBox.setText("log file is changed ...")
 		
 	def op_files(self):
+		'''
+		Output folder selection
+		'''
 		self.op_path= str(QFileDialog.getExistingDirectory(self, "Select Directory"))	
 		self.opTextBox.setText(self.op_path)
+		self.myMessageBox.setText("o/p folder is selected, Proceed forward")
 		
 	
 	def startP(self):
+		'''
+		The main function
+		'''
 		#print(self.process_flag)
 		if self.process_flag=='AES':
 			if len(self.key)!=16:
@@ -274,8 +304,7 @@ class App(QWidget):
 				sleep(1)
 				self.close()  
 				
-		##########################################################################################################################################
-		##########################################################################################################################################
+		##########################################################################################################################################	##########################################################################################################################################
 				
 		if	self.process_flag=='DES3':
 			if len(self.key)!=16:
@@ -472,8 +501,8 @@ class App(QWidget):
 		self.bil_type=QLabel("<b>Select the type of encryption<\b>")
 		combo = QComboBox(self)
 		combo.addItem("Select")
-		combo.addItem('DES3')
 		combo.addItem('AES')
+		combo.addItem('DES3')
 		#combo.addItem('XOR')
 		combo.activated[str].connect(self.onActivated)
 		

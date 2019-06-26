@@ -1,4 +1,9 @@
-# the main UI
+## 	pyhton 3.67
+## 	Gedit 
+##	116cs0177	
+##	Crypto
+
+# the main UI for AES only
 # check : Gtk-Message: 20:05:27.575: GtkDialog mapped without a transient parent. This is discouraged. 
 
 ''''
@@ -48,7 +53,9 @@ import csv
 padd=['#','@','!','$','%','&','?','>','<','+','~','*']
 
 class App(QWidget):
-	"""   """
+	"""
+	
+	"""
 	def selector(self,text):
 		if text=='ENCRYPTION':
 			self.main_flag='e'

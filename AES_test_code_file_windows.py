@@ -1,5 +1,9 @@
-## now try to do the same but read the  string from a file
+#python 3.6
+#GEDIT
+#116cs0177
 
+
+## now try to do the same but read the  string from a file
 
 from Crypto.Cipher import AES
 from Crypto import Random
