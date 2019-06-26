@@ -23,9 +23,7 @@ variable declaration:-
 6)process_flag					
 ''' 
 
-'''
-FUNCTIONs:-
-'''
+
 
 
 #from fbs_runtime.application_context import ApplicationContext
@@ -63,7 +61,7 @@ class App(QWidget):
 		"""  
 		This function is activated by the second  combo-box
 		It selects the methode we are using for encryption/decryption
-											like :-AES,DES3  
+			                           like :-AES,DES3  
 		"""
 		#print(self.in_path)
 		if self.main_flag=='e':
