@@ -32,11 +32,11 @@ until finished
 
 End with an example of getting some data out of the system or using it for a little demo
 
-## Features
+# Features
 
 Explain how to run the automated tests for this system
 
-### Future Scopes
+# Future Scopes
 
 Explain what these tests test and why
 
@@ -44,7 +44,7 @@ Explain what these tests test and why
 Give an example
 ```
 
-### Current issues
+## Current issues
 
 Explain what these tests test and why
 
