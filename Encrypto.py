@@ -99,13 +99,10 @@ class App(QWidget):
 		function key_generator :- generates and validates the key
 		There is also a section of code / commented for now / which does a shuffling of the key
 		'''
-		if len(text)==8 and self.main_flag=='e' and (self.process_flag=='DES3' or self.process_flag=='AES'):  ## this part is for encryption
+		if len(text)==10 and self.main_flag=='e' and (self.process_flag=='DES3' or self.process_flag=='AES'):  ## this part is for encryption
 			self.key=text;
 			key_length=len(self.key)
-			if	(key_length>12): 
-				self.key=self.key[:12] # if input key length over 12 truncate it
-				key_length=12
-
+			
 			#print(key)
 			padding_length=16-key_length;
 			i=0
