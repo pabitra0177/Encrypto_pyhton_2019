@@ -1,6 +1,6 @@
 # Project Title :- Encrypto
 
-One Paragraph of project description goes here // It will be ready soon
+Encrypto is your personal Encryptor and decryptor. It comes in a suitable UI made with PyQt5. Encrypto doesn't only operate on text files, it goes way beyond that. And also incase you forgot your key , it gives you log file, which of course is not in any encrypted form.   // It will be ready soon
 
 ## Getting Started
 
