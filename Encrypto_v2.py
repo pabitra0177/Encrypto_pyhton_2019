@@ -27,10 +27,14 @@ variable declaration:-
 6)process_flag
 '''
 
+'''
+x.setFont(QtGui.QFont("Times", 8, QtGui.QFont.Bold))
+'''
 
 #from fbs_runtime.application_context import ApplicationContext
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
+from PyQt5.QtCore import Qt
 
 from Crypto.Cipher import AES,DES3
 from Crypto import Random
@@ -84,10 +88,7 @@ class App(QWidget):
 		if len(text)==8 and self.main_flag=='e' and (self.process_flag=='DES3' or self.process_flag=='AES'):  ## this part is for encryption
 			self.key=text;
 			key_length=len(self.key)
-			if	(key_length>12):
-				self.key=self.key[:12] # if input key length over 12 truncate it
-				key_length=12
-
+			
 			#print(key)
 			padding_length=16-key_length;
 			i=0
@@ -385,7 +386,7 @@ class App(QWidget):
 		# Basic tile,icon,geometry,statusBar
 		self.setWindowTitle("Encrypto")
 		self.setWindowIcon(QIcon("14970129516348746919"))
-		self.setGeometry(100,100,420,280)
+		self.setGeometry(100,100,420,380)
 
 		# Colouring
 		self.setAutoFillBackground(True)
@@ -408,8 +409,10 @@ class App(QWidget):
 
 		## 1.1) browse button to select file to be encrypted or decrypted
 		self.bil1=QLabel("<b>Define input file <\b>")
+		self.bil1.setFont(QFont("Times",14,QFont.Bold)) ## change size 
 		browserButton=QPushButton("browse files ",self)
 		browserButton.resize(browserButton.sizeHint())
+		browserButton.setFont(QFont("Times",13,QFont.DemiBold)) ## change size
 		browserButton.setToolTip("Press to select the file you want ")
 		browserButton.clicked.connect(self.open_files)
 		#print(self.result)
@@ -419,15 +422,18 @@ class App(QWidget):
 
 		## 4)log file
 		self.bil_log=QLabel("<b>log<\b>")
+		self.bil_log.setFont(QFont("Times",14,QFont.Bold)) ## change size
 		self.log_browser=QPushButton("select log file  ",self)
 		self.log_browser.resize(browserButton.sizeHint())
+		self.log_browser.setFont(QFont("Times",13,QFont.DemiBold)) ## change size
 		self.log_browser.setToolTip("Press to select the file you want ")
 		self.log_browser.clicked.connect(self.open_files_log)
 		self.logTextBox=QTextEdit(self)
-		self.logTextBox.setText("/home/pabitra/Encrypto/crypto_log.csv")
+		self.logTextBox.setText("selected by default")
 
 		## 8) op path
 		self.bil_op=QLabel("<b>Define output path <\b>")
+		self.bil_op.setFont(QFont("Times",14,QFont.Bold)) ## change size
 		opButton=QPushButton("select the path ",self)
 		opButton.resize(opButton.sizeHint())
 		opButton.setToolTip("select the output folder ")
@@ -440,6 +446,7 @@ class App(QWidget):
 
 		## 2) combobox to select type of encryption
 		self.bil_type=QLabel("<b>Select the type of encryption<\b>")
+		self.bil_type.setFont(QFont("Times",14,QFont.Bold)) ## change size
 		combo = QComboBox(self)
 		combo.addItem("Select")
 		combo.addItem('AES')
@@ -449,6 +456,7 @@ class App(QWidget):
 
 		## 3) key enter
 		self.bil_key=QLabel("<b>Key <\b>")
+		self.bil_key.setFont(QFont("Times",12,QFont.Bold)) ## change size
 		self.keyBox=QLineEdit(self)
 		try:
 			self.keyBox.textChanged[str].connect(self.key_generator)
@@ -457,6 +465,7 @@ class App(QWidget):
 
 		## 6) start the process
 		startButton= QPushButton("START",self)
+		startButton.setFont(QFont("Times",14,QFont.Bold)) ## change size
 		startButton.resize(startButton.sizeHint())
 		startButton.setToolTip("Press to  run the Encryption ")
 		startButton.clicked.connect(self.startP)
@@ -466,27 +475,31 @@ class App(QWidget):
 		self.myMessageBox=QTextEdit(self)
 		self.myMessageBox.setText("Please enter all the credential for the program to run")
 
-
+		## dummy
+		self.dummy=QLabel("<b>Hello<\b>")
+		
+		
 		## grid
 		grid=QGridLayout()
-		grid.setSpacing(10)
-		grid.addWidget(self.bil_main,1,0)
-		grid.addWidget(self.select,2,0)
+		grid.setSpacing(9)
+		grid.addWidget(self.bil_main,1,0) # " Choice "
+		grid.addWidget(self.dummy,1,2) # "hello"
+		grid.addWidget(self.select,2,0) #"e/d" selection combobox 
 		grid.addWidget(self.bil1,3,0)
-		grid.addWidget(browserButton,4,0) ## browse file
-		grid.addWidget(self.myTextBox,4,1)
+		grid.addWidget(self.myTextBox,4,0) ## i/p file 
+		grid.addWidget(browserButton,4,1,1,2)#"i/p file browse button "
 		grid.addWidget(self.bil_log,5,0)
-		grid.addWidget(self.log_browser,6,0)
-		grid.addWidget(self.logTextBox,6,1)
-		grid.addWidget(self.bil_op,7,0)##
-		grid.addWidget(opButton,8,0)
-		grid.addWidget(self.opTextBox,8,1)
+		grid.addWidget(self.logTextBox,6,0) 
+		grid.addWidget(self.log_browser,6,1,1,2) # log file browse button
+		grid.addWidget(self.bil_op,7,0)
+		grid.addWidget(self.opTextBox,8,0)
+		grid.addWidget(opButton,8,1,1,2) ##op folder button
 		grid.addWidget(self.bil_type,9,0)
 		grid.addWidget(combo,10,0)
 		grid.addWidget(self.bil_key,11,0)
 		grid.addWidget(self.keyBox,12,0)
 		grid.addWidget(self.bil_msg,13,0)
-		grid.addWidget(self.myMessageBox,14,0)
+		grid.addWidget(self.myMessageBox,14,0,1,3)
 		grid.addWidget(startButton,15,0)
 		self.setLayout(grid)
 
