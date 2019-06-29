@@ -17,7 +17,6 @@ variable declaration:-
 3) self.in_path:-	status- class member string var
 					string input file adr with file name
 
-
 4) self.op_path:- 	status- class member string var
 					op path only , file name not included
 
@@ -26,6 +25,7 @@ variable declaration:-
 
 6)self.process_flag
 '''
+
 
 
 #from fbs_runtime.application_context import ApplicationContext
@@ -49,14 +49,19 @@ padd=['@','!','$','%','&','?','>','<','+','~','*','1','2','3','4','5','6','7','8
 class App(QWidget):
 	"""
 
-        """
+    """
 	def selector(self,text): # Selects either its encryption or decryption
 		if text=='ENCRYPTION':
 			self.main_flag='e'
 		elif text=='DECRYPTION' :
 			self.main_flag='d'
+		elif text=='Folder Encryption':
+			self.main_flag='fe'
+		elif text=='Folder Decryption':
+			self.main_flag='fd'
 		#print(self.main_flag)
 		self.myMessageBox.setText("Now select the i/p file and o/p folder")
+
 
 	def check(self): # A check function // Can be removed
 		print("hello")
@@ -142,10 +147,9 @@ class App(QWidget):
 		self.opTextBox.setText(self.op_path)
 		self.myMessageBox.setText("Now select the methode")
 
-
 	def startP(self): # the Function
 		#print(self.process_flag)
-		if(self.process_flag=='' or self.key=='' or self.in_path=='' or self.in_path==None or self.in_path==''):
+		if(self.process_flag=='' or self.key=='' or self.main_flag=='' or self.in_path==None or self.in_path==''):
 			#ERROR
 			# have a message box
 			self.myMessageBox.setText("Please enter all the credential for the program to run")
@@ -191,7 +195,9 @@ class App(QWidget):
 					with open(out_filename,'wb') as outfile:
 						outfile.write(struct.pack('<Q', filesize))
 						outfile.write(iv)
+
 						#####
+
 						'''
 						i=0
 						wstr=''
@@ -283,7 +289,7 @@ class App(QWidget):
 		##########################################################################################################################################
 		##########################################################################################################################################
 
-		if	self.process_flag=='DES3': ## <<<<<<<<<======================
+		if	self.process_flag=='DES3':
 			if len(self.key)!=16:
 				#print(self.key)
 				len(self.key)
@@ -437,6 +443,8 @@ class App(QWidget):
 		self.select.addItem(' select ')
 		self.select.addItem('ENCRYPTION')
 		self.select.addItem('DECRYPTION')
+		self.select.addItem('Folder Encryption')
+		self.select.addItem('Folder Decryption')
 		self.select.activated[str].connect(self.selector)
 
 		## 2.1) browse button to select file to be encrypted or decrypted
@@ -495,11 +503,17 @@ class App(QWidget):
 		self.myMessageBox=QTextEdit(self)
 		self.myMessageBox.setText("Please enter all the credential for the program to run")
 
+		## 9)
+		self.err_labl=QLabel("<b>ERROR<\b>")
+		## colour it to back ground when there is an error make it red
+		## once the error is solved, don't forget to change the colour back to BGC
+
 
 		## grid
 		grid=QGridLayout()
 		grid.setSpacing(10)
 		grid.addWidget(self.bil_main,1,0)
+		grid.addWidget(self.err_labl,1,1)
 		grid.addWidget(self.select,2,0)
 		grid.addWidget(self.bil1,3,0)
 		grid.addWidget(browserButton,4,0) ## browse file

@@ -1,14 +1,14 @@
 ## 	pyhton 3.67
-## 	Gedit 
-##	116cs0177	
+##  Gedit
 ##	Crypto
+##	116CS0177
 
 from Crypto.Cipher import AES
 from Crypto import Random
 from random import randint,seed,shuffle
 import sys
 
-padd=['#','@','!','$','%','&','?','>','<','+',]
+padd=['@','!','$','%','&','?','>','<','+','~','*','1','2','3','4','5','6','7','8','9','0','(',')','{','}']
 
 
 def key_generator():
@@ -21,9 +21,9 @@ def key_generator():
 	if	(key_length==0):
 		print('Enter the key')
 		key=input()
-	
+
 	key_length=len(key)
-	if	(key_length>12): 
+	if	(key_length>12):
 		key=key[:12] # if input key length crosses 12 truncate it
 		key_length=12
 
@@ -45,11 +45,11 @@ def key_generator():
 	key=key.encode('utf-8')# linux to win
 	## shuffled key is ready
 	return key
-	
+
 
 key=key_generator()
 
-# now take the string and prepare it   
+# now take the string and prepare it
 print("enter the text to be encoded")
 msg=input()
 
@@ -80,4 +80,3 @@ msg=msg.encode('utf-8')
 encrypted=cipher.encrypt(msg)
 print(encrypted)
 print(type(encrypted))
-

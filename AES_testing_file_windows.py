@@ -1,9 +1,8 @@
-#python 3.6
-#GEDIT
-#116cs0177
-
-
 ## now try to do the same but read the  string from a file
+## 	pyhton 3.67
+##  Gedit
+##	Crypto
+##	116CS0177
 
 from Crypto.Cipher import AES
 from Crypto import Random
@@ -15,7 +14,7 @@ import struct # system key packing
 import csv # log
 
 
-padd=['#','@','!','$','%','&','?','>','<','+','~','*']
+padd=['@','!','$','%','&','?','>','<','+','~','*','1','2','3','4','5','6','7','8','9','0','(',')','{','}']
 
 
 def key_generator(key):
@@ -26,9 +25,9 @@ def key_generator(key):
 	if	(key_length==0):
 		print('Enter the key')
 		key=input()
-	
+
 	key_length=len(key)
-	if	(key_length>12): 
+	if	(key_length>12):
 		key=key[:12] # if input key length over 12 truncate it
 		key_length=12
 
@@ -49,7 +48,7 @@ def key_generator(key):
 	shuffle(key)
 	key=''.join(key)
 	## shuffled key is ready
-	''' 
+	'''
 	print(key)
 	key=key.encode('utf-8')
 	return key
@@ -61,14 +60,14 @@ def encrypt_file(key, in_filename,log_filename=None, out_filename=None,  chunksi
 	date=cTime[1]+cTime[2]+cTime[-1]
 	day=cTime[0]
 	clk=cTime[3]
-	
+
 	log.append(day)
 	log.append(date)
 	log.append(clk)
-	
+
 	log.append(key)
 	log.append(in_filename)
-		
+
 	if not out_filename:
 		out_filename = in_filename + '.enc'
 
@@ -98,7 +97,7 @@ def encrypt_file(key, in_filename,log_filename=None, out_filename=None,  chunksi
 		writer = csv.writer(logf)
 		writer.writerow(log)
 	logf.close()
-	'''		
+	'''
 def decrypt_file(key, in_filename,log_file=None,out_filename=None, chunksize=24*1024):
 	log=[]
 	curr_time=ctime()
@@ -106,14 +105,14 @@ def decrypt_file(key, in_filename,log_file=None,out_filename=None, chunksize=24*
 	date=cTime[1]+cTime[2]+cTime[-1]
 	day=cTime[0]
 	clk=cTime[3]
-	
+
 	log.append(day)
 	log.append(date)
 	log.append(clk)
-	
+
 	log.append(key)
 	log.append(in_filename)
-	
+
 	if not out_filename:
 		out_filename = os.path.splitext(in_filename)[0]
 
@@ -137,29 +136,29 @@ def decrypt_file(key, in_filename,log_file=None,out_filename=None, chunksize=24*
 	with open(log_path,'a') as logf:
 		writer = csv.writer(logf)
 		writer.writerow(log)
-	logf.close()	
-	'''			
-			
+	logf.close()
+	'''
+
 
 
 ip_path='E:\INTERNSHIP\Encryption_pyhton_2019-master/Document.txt'  ## from UI
 op_path='E:\INTERNSHIP\Encryption_pyhton_2019-master'  ## folder not file
 
-log_path='/home/pabitra/Encrypto/crypto_log.csv'
-#f=open(log_path,'a') # if_it wasn't there it got created
-#f.close()
+log_path='crypto_log.csv'
+f=open(log_path,'a') # if_it wasn't there it got created
+f.close()
 
 print("press 1 to perform encryption	")
 print("press 2 to perform decryption    ")
 f=input()
 
 if f=='1':
-	key=input('Enter an alphanumeric key   ')	
+	key=input('Enter an alphanumeric key   ')
 	key=key_generator(key)
 	l=ip_path.split('/')
 	fname=l[-1]
 	op_path=op_path+'/'+fname+'.enc'
-	
+
 	'''
 	len_x=len(ip_path_str)-len(fname)-1
 	path_str=path_str[:len_x]

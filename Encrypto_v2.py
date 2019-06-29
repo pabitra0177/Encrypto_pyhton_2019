@@ -24,14 +24,13 @@ variable declaration:-
 5)self.log_path:-	status- class member string var
 					log file path
 
-6)self.process_flag
+6)process_flag
 '''
 
 
 #from fbs_runtime.application_context import ApplicationContext
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-from PyQt5.QtCore import Qt
 
 from Crypto.Cipher import AES,DES3
 from Crypto import Random
@@ -47,27 +46,23 @@ import csv
 padd=['@','!','$','%','&','?','>','<','+','~','*','1','2','3','4','5','6','7','8','9','0','(',')','{','}']
 
 class App(QWidget):
-	"""
-
-        """
-	def selector(self,text): # Selects either its encryption or decryption
+	"""   """
+	def selector(self,text):
 		if text=='ENCRYPTION':
 			self.main_flag='e'
 		elif text=='DECRYPTION' :
 			self.main_flag='d'
+		elif text=='Folder Encryption':
+			self.main_flag='fe'
+		elif text=='Folder Decryption':
+			self.main_flag='fd'
 		#print(self.main_flag)
-		self.myMessageBox.setText("Now select the i/p file and o/p folder")
 
-	def check(self): # A check function // Can be removed
+	def check(self):
 		print("hello")
 
 
 	def onActivated(self,text):
-		"""
-		This function is activated by the second  combo-box
-		It selects the methode we are using for encryption/decryption
-											like :-AES,DES3
-		"""
 		#print(self.in_path)
 		if self.main_flag=='e':
 			l=self.in_path.split('/')
@@ -78,20 +73,22 @@ class App(QWidget):
 			op=os.path.splitext(self.in_path)[0]
 			op=op.split('/')
 			self.op_path=self.op_path+'/'+op[-1]
-			#print(self.op_path)
 		if text=='AES':
 			self.process_flag='AES'
 			self.myMessageBox.setText("AES is selected, MODE:-CBC , Now enter the key ")
 		elif text=='DES3':
 			self.process_flag='DES3'
-			self.myMessageBox.setText("DES3 is selected, MODE:-OFB , Now enter the key")
 
 
-	def key_generator(self,text): # generates and validates the key // 8+8 for now
+	def key_generator(self,text):
 		if len(text)==8 and self.main_flag=='e' and (self.process_flag=='DES3' or self.process_flag=='AES'):  ## this part is for encryption
 			self.key=text;
 			key_length=len(self.key)
+			if	(key_length>12):
+				self.key=self.key[:12] # if input key length over 12 truncate it
+				key_length=12
 
+			#print(key)
 			padding_length=16-key_length;
 			i=0
 			## randomness generator  seed()
@@ -110,24 +107,21 @@ class App(QWidget):
 			## shuffled key is ready
 			'''
 			#print(self.key)
-			self.myMessageBox.setText("Keep the key "+self.key+" safe !!!")
-			self.key=self.key.encode('utf-8')
+			self.myMessageBox.setText(self.key)
 
 		if self.main_flag=='d'	and len(text)==16 and (self.process_flag=='DES3' or self.process_flag=='AES'):
 			## this part is for decryption
 			self.key=text
 			#print(self.key)
-			self.myMessageBox.setText("The key received is "+self.key)
-			self.key=self.key.encode('utf-8')
+			self.myMessageBox.setText(self.key)
 
 
-	def open_files(self):   # browser Button to select i/p file
+	def open_files(self):   # browser Button
 		dialog = QFileDialog()
 		fname = dialog.getOpenFileName(self, "Open file")
 		filename=fname[0]
 		self.in_path=filename
 		self.myTextBox.setText(self.in_path)
-		self.myMessageBox.setText("Input file selected.May jump to o/p folder selection")
 
 	def open_files_log(self):   # log file browser Button
 		dialog = QFileDialog()
@@ -135,17 +129,15 @@ class App(QWidget):
 		filename=fname[0]
 		self.log_path=filename
 		self.logTextBox.setText(filename)
-		self.myMessageBox.setText("log file changed")
 
-	def op_files(self): # Selects the o/p folder
+	def op_files(self):
 		self.op_path= str(QFileDialog.getExistingDirectory(self, "Select Directory"))
 		self.opTextBox.setText(self.op_path)
-		self.myMessageBox.setText("Now select the methode")
 
 
-	def startP(self): # the Function
+	def startP(self):
 		#print(self.process_flag)
-		if(self.process_flag=='' or self.key=='' or self.in_path=='' or self.in_path==None or self.in_path==''):
+		if (self.main_flag=='' or self.process_flag=='' or self.key=='' or self.in_path==None or self.in_path==''):
 			#ERROR
 			# have a message box
 			self.myMessageBox.setText("Please enter all the credential for the program to run")
@@ -167,16 +159,15 @@ class App(QWidget):
 				log=[]
 				curr_time=ctime()
 				cTime=curr_time.split(' ')
-				date=cTime[1]+' '+cTime[2]+' '+cTime[-1]
+				date=cTime[3]+"/"+cTime[1]+"/"+cTime[-1]
 				day=cTime[0]
-				clk=cTime[3]
+				clk=cTime[4]
 
 				log.append(day)
 				log.append(date)
 				log.append(clk)
 
-				temp_key=key.decode("utf-8")
-				log.append(temp_key)
+				log.append(key)
 				log.append(in_filename)
 
 				if  out_filename=='':
@@ -187,21 +178,11 @@ class App(QWidget):
 				encryptor = AES.new(key, AES.MODE_CBC, iv)
 				filesize = os.path.getsize(in_filename)
 
-				with open(in_filename,'rb') as infile:
-					with open(out_filename,'wb') as outfile:
+				with open(in_filename, 'rb') as infile:
+					with open(out_filename, 'wb') as outfile:
 						outfile.write(struct.pack('<Q', filesize))
 						outfile.write(iv)
-						#####
-						'''
-						i=0
-						wstr=''
-						for i in range(16):
-							wstr=wstr+' '
 
-						print(len(wstr))
-						wstr=wstr.encode("utf-8")
-						outfile.write(encryptor.encrypt(wstr))
-                        '''
 						while True:
 							chunk = infile.read(chunksize)
 							#print(type(chunk))
@@ -212,7 +193,6 @@ class App(QWidget):
 
 							outfile.write(encryptor.encrypt(chunk))
 				outfile.close()
-				infile.close()
 				log.append(out_filename)
 				log.append(self.process_flag)
 				#logging
@@ -220,37 +200,32 @@ class App(QWidget):
 					writer = csv.writer(logf)
 					writer.writerow(log)
 					logf.close()
-				##sleep(0.8)
-				self.myMessageBox.setText("Encryption completed ... please close the window")
-				sleep(1)
-				self.close()
+				self.myMessageBox.setText("Encryption completed")
 
 			elif len(self.key)==16 and self.main_flag=='d':
 				""" decryption """
-				#self.key=self.key.decode('utf-8')
 				self.myMessageBox.setText("Decryption is going on")
 				key=self.key
 				in_filename=self.in_path
 				log_path=self.log_path
 				out_filename=self.op_path
 				chunksize=self.chunksize;
-				#####################==========================#########################
+
 				log=[]
 				curr_time=ctime()
 				cTime=curr_time.split(' ')
-				date=cTime[1]+' '+cTime[2]+' '+cTime[-1]
+				date=cTime[3]+"/"+cTime[1]+"/"+cTime[-1]
 				day=cTime[0]
-				clk=cTime[3]
+				clk=cTime[4]
 
 				log.append(day)
 				log.append(date)
 				log.append(clk)
 
-				temp_key=key.decode("utf-8")
-				log.append(temp_key)
+				log.append(key)
 				log.append(in_filename)
 
-				if not out_filename:
+				if  out_filename=='':
 					out_filename = os.path.splitext(in_filename)[0]
 
 				with open(in_filename, 'rb') as infile:
@@ -266,30 +241,24 @@ class App(QWidget):
 							outfile.write(decryptor.decrypt(chunk))
 
 						outfile.truncate(original_size)
-						outfile.close() ###  Change ??
+						outfile.close()
 				log.append(out_filename)
 				log.append(self.process_flag)
-
 				#logging
 				with open(log_path,'a') as logf:
 					writer = csv.writer(logf)
 					writer.writerow(log)
-				logf.close()
-
-				self.myMessageBox.setText("Decryption completed ... please close the window")
-				sleep(1)
-				self.close()
-
-		##########################################################################################################################################
-		##########################################################################################################################################
-
-		if	self.process_flag=='DES3': ## <<<<<<<<<======================
+					logf.close()
+				self.myMessageBox.setText("Decryption is completed")
+		##################################################################################
+		##################################################################################
+		if	self.process_flag=='DES3':
 			if len(self.key)!=16:
 				#print(self.key)
 				len(self.key)
 				self.myMessageBox.setText("You have to enter key")
 			elif len(self.key)==16 and self.main_flag=='e':
-				#now let's  do the encryption
+				#	now let's  do the encryption
 				self.myMessageBox.setText("Encryption is going on")
 				key=self.key
 				in_filename=self.in_path
@@ -308,8 +277,7 @@ class App(QWidget):
 				log.append(date)
 				log.append(clk)
 
-				temp_key=key.decode("utf-8")
-				log.append(temp_key)
+				log.append(key)
 				log.append(in_filename)
 
 				if  out_filename=='':
@@ -342,9 +310,7 @@ class App(QWidget):
 					writer = csv.writer(logf)
 					writer.writerow(log)
 					logf.close()
-				self.myMessageBox.setText("Encryption completed ... please close the window")
-				sleep(1)
-				self.close()
+				self.myMessageBox.setText("Encryption completed")
 
 			elif len(self.key)==16 and self.main_flag=='d':
 				""" decryption """
@@ -366,8 +332,7 @@ class App(QWidget):
 				log.append(date)
 				log.append(clk)
 
-				temp_key=key.decode("utf-8")
-				log.append(temp_key)
+				log.append(key)
 				log.append(in_filename)
 
 				if out_filename=='':
@@ -394,9 +359,8 @@ class App(QWidget):
 					writer = csv.writer(logf)
 					writer.writerow(log)
 					logf.close()
-				self.myMessageBox.setText("Decryption completed ... please close the window")
-				sleep(1)
-				self.close()
+				self.myMessageBox.setText("Decryption is completed")
+
 
 
 	def __init__(self):
@@ -406,13 +370,12 @@ class App(QWidget):
 	def initUI(self):
 		self.main_flag=''
 		########################### EDIT TO CHANGE OUTPUT PATH
-		self.op_path='' ## folder not file
+		self.op_path=''# '/home/pabitra/Encrypto'  ## folder not file
 		###########################################################
 		self.key=''
 		#self.in_path=''
 
-		## log file creation
-		self.log_path='log.csv'
+		self.log_path='/home/pabitra/Encrypto/crypto_log.csv'
 		f=open(self.log_path,'a')
 		f.close()
 
@@ -427,47 +390,55 @@ class App(QWidget):
 		# Colouring
 		self.setAutoFillBackground(True)
 		p = self.palette()
-		p.setColor(self.backgroundRole(), Qt.lightGray) ### BGC
-		p.setColor(self.foregroundRole(), Qt.darkCyan)	### FGC
+		p.setColor(self.backgroundRole(), Qt.lightGray)
+		p.setColor(self.foregroundRole(), Qt.darkCyan)
 		self.setPalette(p)
 
-		## 1) select encryption or decryption
+
+		## 5) select encryption or decryption
 		self.bil_main=QLabel("<b>Choice  <\b>")
 		self.select = QComboBox(self)
 		self.select.addItem(' select ')
 		self.select.addItem('ENCRYPTION')
 		self.select.addItem('DECRYPTION')
+		self.select.addItem('Folder Encryption')
+		self.select.addItem('Folder Decryption')
 		self.select.activated[str].connect(self.selector)
 
-		## 2.1) browse button to select file to be encrypted or decrypted
+
+		## 1.1) browse button to select file to be encrypted or decrypted
 		self.bil1=QLabel("<b>Define input file <\b>")
 		browserButton=QPushButton("browse files ",self)
 		browserButton.resize(browserButton.sizeHint())
 		browserButton.setToolTip("Press to select the file you want ")
 		browserButton.clicked.connect(self.open_files)
 		#print(self.result)
-		## 2.2) this is a text box to show the file selected
+		## 1.2) this is a text box to show the file selected
 		self.myTextBox=QTextEdit(self)
 
-		## 3)log file
+
+		## 4)log file
 		self.bil_log=QLabel("<b>log<\b>")
 		self.log_browser=QPushButton("select log file  ",self)
 		self.log_browser.resize(browserButton.sizeHint())
 		self.log_browser.setToolTip("Press to select the file you want ")
 		self.log_browser.clicked.connect(self.open_files_log)
 		self.logTextBox=QTextEdit(self)
-		self.logTextBox.setText("Selected BY default")
+		self.logTextBox.setText("/home/pabitra/Encrypto/crypto_log.csv")
 
-		## 4) op path
+		## 8) op path
 		self.bil_op=QLabel("<b>Define output path <\b>")
 		opButton=QPushButton("select the path ",self)
 		opButton.resize(opButton.sizeHint())
 		opButton.setToolTip("select the output folder ")
 		opButton.clicked.connect(self.op_files)
-		## 4.2) this is a text box to show the file selected
+
+		## 8.2) this is a text box to show the file selected
 		self.opTextBox=QTextEdit(self)
 
-		## 5) combobox to select type of encryption
+
+
+		## 2) combobox to select type of encryption
 		self.bil_type=QLabel("<b>Select the type of encryption<\b>")
 		combo = QComboBox(self)
 		combo.addItem("Select")
@@ -476,7 +447,7 @@ class App(QWidget):
 		#combo.addItem('XOR')
 		combo.activated[str].connect(self.onActivated)
 
-		##6) key enter
+		## 3) key enter
 		self.bil_key=QLabel("<b>Key <\b>")
 		self.keyBox=QLineEdit(self)
 		try:
@@ -484,13 +455,13 @@ class App(QWidget):
 		except:
 			pass
 
-		## 7) start the process
+		## 6) start the process
 		startButton= QPushButton("START",self)
 		startButton.resize(startButton.sizeHint())
 		startButton.setToolTip("Press to  run the Encryption ")
 		startButton.clicked.connect(self.startP)
 
-		## 8) message box
+		## 7) message box
 		self.bil_msg=QLabel("<b>Message Box<\b>")
 		self.myMessageBox=QTextEdit(self)
 		self.myMessageBox.setText("Please enter all the credential for the program to run")
@@ -507,7 +478,7 @@ class App(QWidget):
 		grid.addWidget(self.bil_log,5,0)
 		grid.addWidget(self.log_browser,6,0)
 		grid.addWidget(self.logTextBox,6,1)
-		grid.addWidget(self.bil_op,7,0)
+		grid.addWidget(self.bil_op,7,0)##
 		grid.addWidget(opButton,8,0)
 		grid.addWidget(self.opTextBox,8,1)
 		grid.addWidget(self.bil_type,9,0)
@@ -522,7 +493,7 @@ class App(QWidget):
 		self.show()
 
 	def closeEvent(self,event):
-		reply=QMessageBox.question(self,"Message","Close ?",QMessageBox.Yes | QMessageBox.No,QMessageBox.No)
+		reply=QMessageBox.question(self,"Message","Quit ?",QMessageBox.Yes | QMessageBox.No,QMessageBox.No)
 		if reply==QMessageBox.Yes:
 			event.accept()
 		if reply==QMessageBox.No :

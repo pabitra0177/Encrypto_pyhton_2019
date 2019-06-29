@@ -1,0 +1,7 @@
+1) o/p same as input/ keep the same folder
+2) pop-up msg box for folder encryption and decryption both should not be same
+3) folder read
+4) shuffle button
+## write additional  features in the higher versions
+5) drag line
+6) prompt user if he misses any of the compulsory procedures
