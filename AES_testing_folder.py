@@ -144,7 +144,7 @@ ip_path='/home/pabitra/Encrypto/test'  ## from UI
 op_path='/home/pabitra/Encrypto/test2'  ## folder not file
 
 log_path='crypto_log.csv'
-f=open(log_path,'a') # if_it wasn't there it got created
+f=open(log_path,'a') # if_it wasn't there it will get created
 f.close()
 
 print("press 1 to perform encryption	")
