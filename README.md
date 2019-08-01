@@ -15,7 +15,9 @@ pip install pyqt5
 Then the crypto-module pycrypto should to be installed
 ```
 pip install pycrypto
-```or
+```
+or
+
 ```   
 pip install pycryptodome
 ```
