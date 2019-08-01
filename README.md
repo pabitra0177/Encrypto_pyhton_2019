@@ -50,16 +50,22 @@ Encrypto uses
 
 ## Features
 
-Explain how to run the automated tests for this system
+The encrypto tool has the underlying features :-
+* Cool but simple Guided User Interface
+* Doesn't only operate on text files, goes way beyond that
+* Has two E/D algorithms to choose from (In future more can be added)
+* Two layer key management system and a log file
+* Single application for both file and folder e/d
 
 ## Future Scopes
+Future developement of this project eyes on
+* Adding asymmetric algorithms (RSA)
+* Create msi file with fman build system(fbs)
+* Folder encryption in terms of folder encryption
+* Better User interface
 
-Explain what these tests test and why
-
-```
-Give an example
-```
-
+[comment]: <>
+(
 ## Current issues
 
 Explain what these tests test and why
@@ -71,6 +77,7 @@ Give an example
 ## Deployment
 
 Add additional notes about how to deploy this on a live system
+)
 
 ## Built With
 
