@@ -41,7 +41,12 @@ pyinstaller --onefile  Encrypto_Windows.py
 ```
 Then the .exe file will be in the dist folder
 
-
+## Insights
+Encrypto uses
+    * Python oops for control structure and future scalability
+    * Pycrypto for Encryption/Decryption algorithms
+    * PyQt5(GUI) to faciliate User-System interaction
+    * Pyinstaller to create an executable file
 
 ## Features
 
