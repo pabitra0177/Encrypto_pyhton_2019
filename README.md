@@ -41,12 +41,12 @@ pyinstaller --onefile  Encrypto_Windows.py
 ```
 Then the .exe file will be in the dist folder
 
-## Insights
+## Built with
 Encrypto uses
 * Python oops for control structure and future scalability
-* Pycrypto for Encryption/Decryption algorithms
-* PyQt5(GUI) to faciliate User-System interaction
-* Pyinstaller to create an executable file
+* [Pycrypto](http://https://pypi.org/project/pycrypto/) for Encryption/Decryption algorithms
+* [PyQt5(GUI](https://https://pypi.org/project/PyQt5/) to faciliate User-System interaction
+* [Pyinstaller](https://pypi.org/project/PyInstaller/) to create an executable file
 
 ## Features
 
@@ -64,45 +64,15 @@ Future developement of this project eyes on
 * Folder encryption in terms of folder encryption
 * Better User interface
 
-[comment]: <>
-(
-## Current issues
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-)
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
 ## Authors
 
 * **Pabitra Dash**  
-
-
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details
 
-## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+
+
+## Thank you
