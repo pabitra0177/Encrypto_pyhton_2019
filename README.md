@@ -22,21 +22,26 @@ pip install pycryptodome
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
+It doesn't come with an installer(msi) file, but you can create own exe by following steps :-
 
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
+First 'pyinstaller' module is required.
 
 ```
-until finished
+pip install pyinstaller
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+then open that directory containg the code, and follow the following instruction :- 
+
+```
+pyinstaller  Encrypto_Windows.py
+```
+or
+```
+pyinstaller --onefile  Encrypto_Windows.py
+```
+Then the .exe file will be in the dist folder
+
+
 
 ## Features
 
