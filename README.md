@@ -1,18 +1,24 @@
 # Project Title :- Encrypto
 
-Encrypto is your personal Encryptor and decryptor. It comes in a suitable UI made with PyQt5. Encrypto doesn't only operate on text files, it goes way beyond that. And also incase you forgot your key , it gives you log file, which of course is not in any encrypted form.   // It will be ready soon
+Encrypto is your personal Encryptor and decryptor. It comes in a suitable UI made with PyQt5. Encrypto doesn't only operate on text files, it goes way beyond that. And also incase you forgot your key , it gives you log file, which of course is not in any encrypted form.   
 
 ## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+So to get started you need python 3.x and some py-modules in your system.
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+First you need to install PyQt5, that runs the UI:-
 
 ```
-Give examples
+pip install pyqt5
 ```
+Then the crypto-module pycrypto should to be installed
+```
+pip install pycrypto
+    'or'
+pip install pycryptodome
+```
+* the later one especially for windows 
 
 ### Installing
 
