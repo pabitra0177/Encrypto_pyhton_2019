@@ -76,8 +76,6 @@ class App(QWidget):
 			self.process_flag='DES3'
 
 
-
-
 	def key_generator(self,text):
 		if len(text)==8 and self.main_flag=='e' and (self.process_flag=='DES3' or self.process_flag=='AES'):  ## this part is for encryption
 			self.key=text;

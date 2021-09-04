@@ -1,8 +1,9 @@
 # Project Title :- Encrypto
 
-Encrypto is your personal Encryptor and decryptor. It comes in a suitable UI made with PyQt5. Encrypto doesn't only operate on text files, it goes way beyond that. And also incase you forgot your key , it gives you log file, which of course is not in any encrypted form.   
+Encrypto is your personal Encryptor and decryptor. It comes in a suitable UI made with PyQt5. Encrypto doesn't only operate on text files, it goes way beyond that. And also incase you forgot your key , it gives you log file, which of course is not in any encrypted form.
 
 ## Getting Started
+
 So to get started you need python 3.x and some py-modules in your system.
 
 ### Prerequisites
@@ -23,7 +24,7 @@ pip install pycryptodome
 ```
 * the later one especially for windows 
 
-### Installing
+## How to Create an executable File
 
 It doesn't come with an installer(msi) file, but you can create own exe by following steps :-
 
@@ -49,18 +50,22 @@ Encrypto uses
 * Python oops for control structure and future scalability
 * [Pycrypto](http://https://pypi.org/project/pycrypto/) for Encryption/Decryption algorithms
 * [PyQt5(GUI](https://https://pypi.org/project/PyQt5/) to faciliate User-System interaction
-* [Pyinstaller](https://pypi.org/project/PyInstaller/) to create an executable file
+* [Pyinstaller](https://pypi.org/pro̥ject/PyInstaller/) to create an executable file
 
 ## Features
 
 The encrypto tool has the underlying features :-
+
 * Cool but simple Guided User Interface
 * Doesn't only operate on text files, goes way beyond that
 * Has two E/D algorithms to choose from (In future more can be added)
+    * AES
+    * DES3
 * Two layer key management system and a log file
 * Single application for both file and folder e/d
 
 ## Future Scopes
+
 Future developement of this project eyes on
 * Adding asymmetric algorithms (RSA)
 * Create msi file with fman build system(fbs)
